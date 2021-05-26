@@ -51,6 +51,7 @@ function simulate(svg, graph) {
 
   const lables = node
     .append("text")
+    .attr("class", "white-text")
     .text(function (d) {
       return d.id;
     })

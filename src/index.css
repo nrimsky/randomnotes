@@ -4,6 +4,10 @@ body {
   color: #fafafa;
 }
 
+.white-text {
+  stroke: #fff;
+}
+
 .links line,
 .links path {
   stroke: #fff;
