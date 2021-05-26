@@ -54,25 +54,32 @@ var data = {
 };
 var options = {
   edges: {
+    font: {
+      color: "#add8e6",
+      strokeWidth: 1,
+      strokeColor: "#add8e6",
+      background: '#131213'
+    },
     arrows: {
       to: {
         enabled: true,
-        scaleFactor: 1,
+        scaleFactor: 0.3,
         type: "arrow",
       },
     },
     color: {
-      color: "#848484",
-      highlight: "#848484",
-      hover: "#848484",
+      color: "#fff",
+      highlight: "#fff",
+      hover: "#fff",
       inherit: "from",
-      opacity: 1.0,
+      opacity: 0.8,
     },
     physics: true,
     scaling: {
-      customScalingFunction: () => { return 0.1}
+      customScalingFunction: () => {
+        return 0.1;
+      },
     },
   },
 };
-
 var network = new vis.Network(container, data, options);

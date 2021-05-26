@@ -1,6 +1,5 @@
 import * as d3 from "d3";
-import graph from "./data/graph.json";
-import graph2 from "./data/graph2.json";
+import networks from "./data/networks.json";
 
 function simulate(svg, graph) {
   const width = svg.attr("width");
@@ -104,9 +103,14 @@ function simulate(svg, graph) {
   }
 }
 
-
-const svg = d3.select("svg");
-simulate(svg, graph);
+const svg1 = d3.select("#svg1");
+simulate(svg1, networks.graph1);
 
 const svg2 = d3.select("#svg2");
-simulate(svg2, graph2);
+simulate(svg2, networks.c1);
+
+const svg3 = d3.select("#svg3");
+simulate(svg3, networks.c13);
+
+const svg4 = d3.select("#svg4");
+simulate(svg4, networks.c0);

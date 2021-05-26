@@ -1,0 +1,76 @@
+{
+  "graph1": {
+    "nodes": [
+      { "id": "Hub 1", "group": 1 },
+      { "id": "A", "group": 1 },
+      { "id": "B", "group": 1 },
+      { "id": "C", "group": 1 },
+      { "id": "D", "group": 1 },
+      { "id": "Hub 2", "group": 2 },
+      { "id": "E", "group": 2 },
+      { "id": "F", "group": 2 },
+      { "id": "G", "group": 2 },
+      { "id": "H", "group": 2 },
+      { "id": "I", "group": 2 },
+      { "id": "J", "group": 1 }
+    ],
+    "links": [
+      { "source": "Hub 1", "target": "A", "value": 1 },
+      { "source": "Hub 1", "target": "B", "value": 1 },
+      { "source": "Hub 1", "target": "C", "value": 1 },
+      { "source": "Hub 1", "target": "D", "value": 1 },
+      { "source": "Hub 2", "target": "E", "value": 1 },
+      { "source": "Hub 2", "target": "F", "value": 1 },
+      { "source": "Hub 2", "target": "G", "value": 1 },
+      { "source": "Hub 2", "target": "H", "value": 1 },
+      { "source": "Hub 2", "target": "I", "value": 1 },
+      { "source": "Hub 1", "target": "J", "value": 1 },
+      { "source": "Hub 2", "target": "Hub 1", "value": 1 },
+      { "source": "F", "target": "H", "value": 1 },
+      { "source": "B", "target": "D", "value": 1 }
+    ]
+  },
+  "c1": {
+    "nodes": [
+      { "id": "A", "group": 1 },
+      { "id": "B", "group": 2 },
+      { "id": "C", "group": 2 },
+      { "id": "D", "group": 2 }
+    ],
+    "links": [
+      { "source": "A", "target": "B", "value": 1 },
+      { "source": "A", "target": "C", "value": 1 },
+      { "source": "A", "target": "D", "value": 1 },
+      { "source": "B", "target": "C", "value": 1 },
+      { "source": "B", "target": "D", "value": 1 },
+      { "source": "C", "target": "D", "value": 1 }
+    ]
+  },
+  "c13": {
+    "nodes": [
+      { "id": "A", "group": 1 },
+      { "id": "B", "group": 2 },
+      { "id": "C", "group": 2 },
+      { "id": "D", "group": 2 }
+    ],
+    "links": [
+      { "source": "A", "target": "B", "value": 1 },
+      { "source": "A", "target": "C", "value": 1 },
+      { "source": "A", "target": "D", "value": 1 },
+      { "source": "C", "target": "D", "value": 1 }
+    ]
+  },
+  "c0": {
+    "nodes": [
+      { "id": "A", "group": 1 },
+      { "id": "B", "group": 2 },
+      { "id": "C", "group": 2 },
+      { "id": "D", "group": 2 }
+    ],
+    "links": [
+      { "source": "A", "target": "B", "value": 1 },
+      { "source": "A", "target": "C", "value": 1 },
+      { "source": "A", "target": "D", "value": 1 }
+    ]
+  }
+}

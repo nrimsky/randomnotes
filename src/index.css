@@ -1,6 +1,12 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  background-color: #131213;
+  color: #fafafa;
+}
+
 .links line,
 .links path {
-  stroke: rgb(54, 51, 51);
+  stroke: #fff;
   stroke-opacity: 0.6;
 }
 
@@ -38,7 +44,17 @@ a,
 a:visited,
 a:hover,
 a:active {
-  color: blue;
+  color: #b781ff;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .sm-vis {
@@ -47,4 +63,18 @@ a:active {
 
 ul.spaced > li {
   margin-bottom: 10px;
+}
+
+.flex-col {
+  display: flex; 
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex; 
+  flex-direction: row;
+}
+
+.mr {
+  margin-right: 15px;
 }

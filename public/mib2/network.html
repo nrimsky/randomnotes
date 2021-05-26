@@ -17,48 +17,66 @@
 <body>
     <div class="main">
         <h1>Networks</h1>
-        <svg width="500" height="500" style="display: block;"></svg>
         A graph is the mathematical description of a network. It consists of a series of nodes – these are the
         "entities" – and edges between those nodes that represent the links or connections. These edges can be directed
-        (point from one node to another) or not, and sometimes they can have weights attached to them. Above is an
-        example of a graph that represents the network of Les Misérables characters. This graph is weighted (as
-        represented by the edge width) but not directed. Networks can show emergent behaviour that is fundamentally
-        different from that of a single node.
+        (point from one node to another) or not, and sometimes they can have weights attached to them. Networks can show
+        emergent behaviour that is fundamentally different from that of a single node.
         <h2>Basic properties of graphs</h2>
         <h3>Properties of nodes and small sets of nodes</h3>
         <ul class="spaced">
-            <li>Degree: <br />The degree of a node is the number of edges connected to (adjacent to) a node. If the
+            <li><b>Degree:</b> The degree of a node is the number of edges connected to (adjacent to) a node. If the
                 graph is directional, we can define an in-degree and an out-degree. Note that undirected self-edges
                 contribute 2 to the degree (the edge connects twice).</li>
-            <li>Adjacency: <br />Two nodes are adjacent if they are connected by an edge (this edge is also described as
+            <li><b>Adjacency:</b> Two nodes are adjacent if they are connected by an edge (this edge is also described
+                as
                 being adjacent to both nodes).</li>
-            <li>Shortest path length: <br />the shortest path \( L_{ij} \) is the minimum path length from node \( i \)
+            <li><b>Shortest path length:</b> the shortest path \( L_{ij} \) is the minimum path length from node \( i \)
                 to \( j \). For an unweighted graph, this length is simply the number of edges that must be travelled.
                 For a weighted graph, the distance is the sum over weights along the links. To find the shortest path
                 between any two nodes, you can apply one of several well-known algorithms (eg. Dijkstra’s algorithm).
             </li>
-            <li>Local clustering coefficient: <br />The local clustering coefficient of a node \( i \) is the proportion
+            <li><b>Local clustering coefficient:</b> The local clustering coefficient of a node \( i \) is the
+                proportion
                 of the possible connections between the nodes adjacent to \( i \) that actually exist.
                 $$ C_i = \frac{2n_i}{k_i(k_i - 1)} $$
                 Here, \( k_i \) is the number of distinct nodes to which \( i \) is connected, and \( n_i \) is the
                 number of edges within these \( k_i \) nodes (note that this quantity is ill-defined for nodes with
-                1 or 0 neighbours; we shall simply set the local clustering coefficient to zero in such cases).</li>
+                1 or 0 neighbours; we shall simply set the local clustering coefficient to zero in such cases).
+                <div class="flex-row">
+                    <div class="flex-col mr">
+                        <svg id="svg2" width="100" height="200"></svg>
+                        <small>\( C = 1 \) for node A</small>
+                    </div>
+                    <div class="flex-col mr" style="max-width: 100px;">
+                        <svg id="svg3" width="100" height="200"></svg>
+                        <small>\( C = 1/3 \) for node A (there is only on connection between A's adjacent nodes)</small>
+                    </div>
+                    <div class="flex-col">
+                        <svg id="svg4" width="100" height="200"></svg>
+                        <small>\( C = 0 \) for node A</small>
+                    </div>
+                </div>
+                <br />
+                <br />
+                More than 0.5 is considered quite a high clustering coefficient.
+            </li>
         </ul>
         <h3>Topological properties of the graph as a whole</h3>
         <ul class="spaced">
-            <li>Connectivity: <br />In a connected graph, there is a path between every pair of vertices (the path can
+            <li><b>Connectivity</b> In a connected graph, there is a path between every pair of vertices (the path can
                 go through multiple intermediate nodes).</li>
-            <li>Average degree: <br />The average degree \( \bar{k} \) is the degree \( k_i \) averaged over all the
+            <li><b>Average degree:</b> The average degree \( \bar{k} \) is the degree \( k_i \) averaged over all the
                 nodes in the network. We describe a network as sparse if the average degree is much smaller than the
                 network size (most edges don’t exist).</li>
-            <li>Adjacency matrix: <br />The adjacency matrix \( \mathbf{A} \) for a graph with \( N \) nodes is an \( N
+            <li><b>Adjacency matrix:</b> The adjacency matrix \( \mathbf{A} \) for a graph with \( N \) nodes is an \( N
                 \times N \) matrix with \( A_{ij} = 1 \) if there is a connection from \( i \) to \( j \) in the graph,
-                and zero otherwise.
+                and zero otherwise. If the graph is directed, the adjacency matrix is generally not symmetric, however
+                if it is undirected, then the adjacency matrix is directed.
             </li>
-            <li>Network diameter: <br />The network diameter \( D \) is the maximum over all pairs \( i,j \) in the
+            <li><b>Network diameter:</b> The network diameter \( D \) is the maximum over all pairs \( i,j \) in the
                 network of the shortest path length from \( i \) to \( j \), \( L_{ij} \) . It is therefore the shortest
                 route between the most distant nodes.</li>
-            <li>Global clustering coefficient: <br />The global clustering coefficient \( C \) is the local clustering
+            <li><b>Global clustering coefficient:</b> The global clustering coefficient \( C \) is the local clustering
                 coefficient averaged over all nodes in the graph</li>
         </ul>
         <h2>Generic types of network</h2>
@@ -91,10 +109,24 @@
                 with degree much higher than average. These highly-connected nodes act as interconnecting hubs, allowing
                 efficient hopping around the network and low diameter despite high clustering.</li>
         </ul>
-        <svg id="svg2" width="300" height="200"></svg>
+        <svg id="svg1" width="300" height="200"></svg>
         <h3>Scale-free networks</h3>
+        Many natural networks – including most regulatory and metabolic networks, the internet and social networks,
+        exhibit scale-free behaviour. Scale-free networks are characterised by a power-law distribution, for which (at
+        least for large \( k \)):
+        $$ p(k) \approx k^{\alpha} $$
+        On a log-log plot, a power law is a straight line:
+        $$ \ln p(k) = \alpha \ln k + \text{const} $$
+        This is unlike a Poisson or binomial distribution. In particular, there is no natural peak at \( k \approx
+        \bar{k} \), and no increasingly rapid drop-off beyond this point. There is thus no natural "scale" to these
+        networks. The absence of an increasingly rapid drop-off in \( \ln p(k) \) at large \( \ln (k) \) for scale-free
+        networks indicates an over-representation of highly-connected hubs when compared to Erdos-Renyi networks.
+        <br />
+        <br />
+        The <i>Barabasi-Albert</i> algorithm, a form of "preferential attachment", generates scale-free networks. The
+        basic idea is to have positive feedback, so that highly connected nodes gain even more edges.
     </div>
-    <script src="../src/network.js"></script>
+    <script src="../src/mib2/network.js"></script>
     <a href="/index.html" class="back-link">Back</a>
 </body>
 
