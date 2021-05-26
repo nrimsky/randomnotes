@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/index.css" />
+    <title>Stochastic processes and networks</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Population processes</h1>
+        Population processes are the simplest processes with an infinite number of discrete states. Having an infinite
+        number of states make it impossible to use the matrix based methods. However, typically the number of possible
+        transitions from each state is very low. Normally, we assume that the population changes by only \( \pm 1 \)
+        in a single event. Therefore there are only 2 possible transitions out of each each state (forward one or
+        backwards one) and the process is fully described by population-dependent increase and decrease rates \(
+        \lambda(x) \) and \( \mu(x) \).
+        <div id="vis1" class="vis"></div>
+        In the case of a 1 species population process with jumps of only \( \pm 1 \), it is possible to specify the
+        Master equation is a single line:
+        $$ \frac{dp_x(t)}{dt} = -(\lambda(x) + \mu(x))p_x(t) + \lambda(x-1)p_{x-1}(t) + \mu(x+1)p_{x+1}(t) $$
+        In order for the equation to work for \( \frac{dp_0(t)}{dt} \) we define \( p_{-1} = 0 \).
+        <br />
+        <br />
+        If only one specifes is considered, and only jumps of \( \pm 1 \) are allowed, then any stationary distribution
+        must obey detailed balance. This is because transitions between \( X = 0 \) and \( X = 1 \) must balance in the
+        stationary distribution (because otherwise we would have to compensate with flow to/from \( X = -1 \) while is
+        impossible). This is turn means that transitions between \( X = 1 \) and \( X = 2 \) must obey detailed balance,
+        as an imbalance cannot be compensated elsewhere. This argument applies inductively for all states.
+        <br />
+        <br />
+        Due to this property, we can easily calculate the ratio of probabilities in the stationary distribution...
+        $$ \begin{matrix} \frac{\pi_1}{\pi_0} = \frac{\lambda(0)}{\mu(1)} \\ \frac{\pi_2}{\pi_1} =
+        \frac{\lambda(1)}{\mu(2)} \\ \frac{\pi_2}{\pi_0} = \frac{\lambda(0)\lambda(1)}{\mu(1)\mu(2)} \end{matrix} $$
+        However, for an infinite number of ever growing states, the system may never actually reach the stationary
+        distribution.
+    </div>
+    <a href="/index.html" class="back-link">Back</a>
+    <script src="../src/pproc.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/index.css" />
+    <title>Stochastic processes and networks</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Discrete-state, discrete-time Markov chains</h1>
+        <h2>Probability vector</h2>
+        $$p(x,n)=\begin{pmatrix}p_1(n)\\p_2(n)\\...\\p_N(n)\end{pmatrix}$$
+        \( p_i(n) \) is the probability that discrete random variable \( X \) is in state i at step n. All of the \(
+        p_i(n) \) will sum to 1.
+        <h2>Transition matrix</h2>
+        The transition matrix shows how the probability evolves over time.
+        \( p(x,n) \) is a vector while transition matrix \( \mathbf{T} \) is an N by N matrix where \( T_{ij} = p(x_i,
+        n+1| x_j, n) \) which in other words is the probability of transitioning to state i given that X is currently in
+        state j.
+        $$ \mathbf{T} = \begin{pmatrix} p(1,n+1|1,n)&&p(1,n+1|2,n)&&...\\p(2,n+1|1,n)&&p(2,n+1|2,n)&&...\\...
+        \end{pmatrix}$$
+        <div id="vis1" class="vis"></div>
+        The Markov process represented graphically above can be represented using the following transition matrix:
+        $$ \begin{pmatrix} 0.2&&0.1&&0&&0\\0.3&&0.7&&0.2&&0\\0.5&&0.2&&0.5&&0\\0&&0&&0.3&&1 \end{pmatrix}$$
+        Each column of the transition matrix must some to one due to the conservation of total probability.
+        The matrix / vector formalism can be used if you have more the one discrete variable in the Markov chain. You
+        just need to make a list of all possible total combinations of outcomes \( x \) and \( y \) and label each
+        combination uniquely.
+        <br />
+        <br />
+        If you know the probability vector at time point \( n \), you can find the probability vector at discrete step
+        \( n + m \) by applying the transition matrix \( m \) times:
+        $$ p(x, n+m) = \mathbf{T}^m p(x,n) $$
+        <h2>Following the time evolution of the stochastic process</h2>
+        There are 2 complementary ways of following the time evolution of a Markov process:
+        <ul>
+            <li>Following the whole probability distribution by repeatedly applying \( \mathbf{T} \)</li>
+            <li>Generating sample trajectories</li>
+        </ul>
+        With multidimensional problems or problems with a large number of states it may be hard to follow the entire
+        probability distribution exactly. This is a reason to work at the trajectory level.
+        It is relatively simple to generate sample trajectories for a discrete-time, discrete-state process using random
+        numbers. All we have to do is store the current state, and pick the state at the next step with a probability
+        determined by \( \mathbf{T} \).
+        <h2>Absorbing states and first passage problems</h2>
+        Some Markov chains have absorbing states. Once the process enters this state it will never leave. Mathematically
+        \( T_{ii} = p(x_i,n+1|x_i,n) = 1 \) for an absorbing state \( i \). The hitting time or first passage time from
+        \( i \) to \( j \) is the average time (number of steps) taken to reach state \( j \), given a starting point of
+        \( i \).
+        <br />
+        <br />
+        When calculating first passage times it is useful to know that if a series of "trials" with probability of
+        success \( p \) are made, the mean number of attempts before a success is observed is \( 1/p \).
+    </div>
+    <a href="/index.html" class="back-link">Back</a>
+    <script src="../src/dtmarkov.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/index.css" />
+    <title>Stochastic processes and networks</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Time-dependence of stochastic processes</h1>
+        <h2>Free diffusion</h2>
+        The Fokker-Planck equation describing the diffusion of a particle with a diffusion coefficient \( B(x) = 2D \),
+        in an environment at temperature \( T \) and subject to a drift term \( A(x) = \frac{D}{k_BT}f(x) \), where \(
+        f(x) \) is the applied force, is given by:
+        $$ \frac{\partial p(x,t) }{ \partial t } = -\frac{D}{k_BT}\frac{\partial }{ \partial x} (f(x)p(x,t)) + D
+        \frac{\partial^2 }{ \partial x^2 } p(x,t)$$
+        Over time, diffusive motion makes the particle’s position increasingly difficult to predict given the knowledge
+        of where it was initially. It is this increasing uncertainty that is described by the broadening of the
+        distribution with time. This spreading out is actually a relaxation towards equilibrium; with no potential
+        influencing the particle, it should be equally likely to be anywhere. Thus equilibrium predicts a flat
+        distribution.
+        <h2>The Langevin equation</h2>
+        The idea of the Langevin equation is to take a complex stochastic process and split its updates into a
+        potentially complex deterministic part, and a simple stochastic part. A single update for a trajectory \( x(t)
+        \) sampled from \( X(t) \) is:
+        $$ \Delta x = A(x)\Delta t + \sqrt{2D\Delta t} \Delta w$$
+        where \( \Delta w \) is a sample from \( \Delta W \), a Gaussian random variable with mean 0 and variance 1.
+        We can obtain sample trajectories from a continuous-time, continuous state process numerically by repeatedly
+        applying the Langevin equation as an update rule. For a sufficiently small \( \Delta t \), the generated
+        trajectories \(
+        x(t) \) will approximate a representative sample of the true trajectories.
+        <h2>Dynamics of population processes</h2>
+        The simple representation of the Master equation for a population process as
+        $$ \frac{dp_x(t)}{dt} = -(\lambda(x) + \mu(x))p_x(t) + \lambda(x-1)p_{x-1}(t) + \mu(x+1)p_{x+1}(t) $$
+        allows us to multiply both sides of the equation by \( x \), and sum over all values of \( x \), to derive the
+        dynamics of \( \langle X \rangle \), the expected value of \( X \).
+        Multiplying by x and summing over all possible values, we find that all of the sums on the right-hand side are
+        expectations of quantities like \( x \) or \( x^2 \). This means \( \frac{d\langle X(t) \rangle}{dt} \) can be
+        found using the ODE:
+        $$ \frac{d\langle X(t) \rangle}{dt} = \lambda_0 - \mu_0\langle X(t) \rangle $$
+        We see that, even though individual trajectories of the immigration-death model can ary wildly, the average
+        population obeys an extremely simple ODE, reaching a stable value at \( \langle X(t) \rangle = \lambda_0/\mu_0
+        \).
+        <h2>Poisson point processes</h2>
+        A Poisson point process is a population process that can only increase.
+        <div id="vis1" class="vis"></div>
+        In a general point process, the length of time between event \( n \) and event \( n+1 \) could depend in an
+        arbitrarily complicated way on the history of the process. However, the simplest possible model is one in which
+        the total number of events observed, \( N(t) \) is a continuous-time, discrete-state Markov process with a
+        constant rate of transition \(\nu \) from \( N = n \) to \( N = n + 1 \). This type of model is known as a
+        Poisson point process, and it is essentially an extremely simple population process in which the population can
+        only increase by 1, and does so with a constant propensity.
+        <br />
+        <br />
+        \( M \) is a random variable describing the number of events in a time window ( \Delta t \) of a Poisson point
+        process. The distribution of \( M \) is a function of \(\nu \) and \( \Delta t \): \( p_m(\nu, \Delta t) \). This
+        distribution is a Poisson distribution with mean \( \bar{m} = \nu\Delta t \):
+        $$ p^{\text{po}}_m(\nu\Delta t) = \frac{ \exp(-\nu\Delta t)(\nu\Delta t)^m}{m!} $$
+
+    </div>
+    <a href="/index.html" class="back-link">Back</a>
+    <script src="../src/timedep.js"></script>
+</body>
+
+</html>

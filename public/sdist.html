@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/index.css" />
+    <title>Stochastic processes and networks</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Stationary distributions</h1>
+        In many cases, the probability distribution of a stochastic system will tend towards a limiting result that is
+        constant in time. A stationary distribution \( p_i(t) = \pi_i \) is a probability distribution that remains
+        constant when the relevant time-evolution equation (transition matrix equation or Master equation) is applied to
+        it. The fact the the probability distribution remains constant does not mean that transitions stop occurring.
+        It simply means that probability flows into and out of each state balance each other and so the probability
+        of being in a certain state is not changing. Not every stochastic process has a single, well defined stationary
+        distribution.
+        <br />
+        <br />
+        If a system does have a well-defined stationary distribution that is reached quickly, then a histogram of states
+        visited by a sample trajectory will tend towards the stationary distribution as more and more states are visited
+        (this property is known <i>ergodicity</i>).
+        <h2>Mathematical condition satisfied by the stationary distribution</h2>
+        <ol>
+            <li>Discrete-state, discrete-time: $$ \pi(x) = \mathbf{T}\pi(x) $$</li>
+            <li>Discrete-state, continuous-time: $$ \mathbf{K}\pi(x) = 0 $$</li>
+        </ol>
+        The condition in (1) means that \( \pi \) is an eigenvector of the matrix \( \mathbf{T} \) with an eigenvalue of
+        1. Therefore, if we know that a single, well-defined stationary distribution exists, we can assume that one of
+        the eigenvectors of \( \mathbf{T} \) has eigenvalue 1.
+        <br />
+        <br />
+        The condition in (2) means that \( \pi \) is an eigenvector of the matrix \( \mathbf{K} \) with an eigenvalue of
+        0. We can verify whether a candidate vector \( \pi(x) \) is a stationary distribution by checking whether it
+        satisfies this condition. One must keep in mind the difference in the eigenvalue (0 vs 1) for stationary
+        distributions in continuous-time and discrete-time settings.
+        <br />
+        <br />
+        It is important to remember to normalise the stationary distribution (the vector elements sum to 1).
+        <h2>Example problem: finding the stationary distribution for a discrete-time, discrete-state Markov process</h2>
+        Given a transition matrix:
+        $$ \mathbf{T} = \begin{pmatrix}0.6&&0.4&&0\\0.3&&0.1&&0.2\\0.1&&0.5&&0.8\end{pmatrix} $$
+        We can write down the equation that must be satisfied by the stationary distribution:
+        $$ \begin{pmatrix}0.6&&0.4&&0\\0.3&&0.1&&0.2\\0.1&&0.5&&0.8\end{pmatrix}\begin{pmatrix}\pi_1 \\ \pi_2 \\ \pi_3
+        \end{pmatrix} = \begin{pmatrix}\pi_1 \\ \pi_2 \\ \pi_3 \end{pmatrix} $$
+        We get the 3 equations:
+        $$\begin{matrix}0.6\pi_1 + 0.4\pi_2 = \pi_1 \\ 0.3\pi_1 + 0.1\pi_2 + 0.2\pi_3 = \pi_2 \\ 0.1\pi_1 + 0.5\pi_2 +
+        0.8\pi_3 = \pi_3 \end{matrix}$$
+        These 3 equations are not linearly independent, which is always the case when finding eigenvectors. Therefore,
+        we can ignore the 3rd equation. Instead as a third equation, we use the normalisation condition, which states
+        that \(\pi_1 + \pi_2 + \pi_3 = 1 \). Using this information, we can solve to find that $$ \pi =
+        \begin{pmatrix}0.2\\0.2\\0.6\end{pmatrix} $$
+        <h2>Example problem: finding the stationary distribution for a continuous-time, discrete-state Markov process
+        </h2>
+        Given a rate matrix:
+        $$ \mathbf{T} = \begin{pmatrix}-3&&0&&1\\3&&-2&&0\\0&&2&&-1\end{pmatrix} $$
+        We can write down the equation that must be satisfied by the stationary distribution:
+        $$ \begin{pmatrix}-3&&0&&1\\3&&-2&&0\\0&&2&&-1\end{pmatrix}\begin{pmatrix}\pi_1 \\ \pi_2 \\ \pi_3
+        \end{pmatrix} = \begin{pmatrix}0 \\ 0 \\ 0 \end{pmatrix} $$
+        Using this and the fact that \(\pi_1 + \pi_2 + \pi_3 = 1 \), we get the simultaneous equations:
+        $$\begin{matrix}-3\pi_1 + \pi_3 = 0 \\ 3\pi_1 - 2\pi_2 = 0 \\ \pi_1 + \pi_2 + \pi_3 = 1 \end{matrix}$$
+        This can be solved to find that $$ \pi = \begin{pmatrix}2/11\\3/11\\6/11\end{pmatrix} $$
+        <h2>Flux</h2>
+        The flux \( \phi_{ji} \) between states is the net probability that a system transitions from state \( i \) to
+        state \( j \).
+        <ul>
+            <li>For a continuous-time process: $$ \phi_{ji} = K_{ji}p_i - K_{ij}p_j $$</li>
+            <li>For a discrete-time Markov chain: $$ \phi_{ji} = T_{ji}p_i - T_{ij}p_j $$</li>
+        </ul>
+        <h2>Detailed balance</h2>
+        There are two fundamentally distinct types of stationary distribution, those that obey <i>detailed balance</i>
+        and those that do not. For a stationary distribution that satisfies detailed balance, the flux \( \phi_{ji} = 0
+        \) for every pair of states \( i,j \). In other words, a system is just as likely to go from \( j \) to \( i \)
+        as it is from \( i \) to \( j \). These two transitions balance each other, and so does every other pair
+        of states – which is why it is known as detailed balance.
+        <br />
+        <br />
+        As transitions between each pair of states balance each other in detailed balance, a system in detailed balance
+        must be in the stationary distribution. However, one can have a stationary distribution which does not obey
+        detailed balance. Below is an example of a system with a stationary distribution that does not obey detailed
+        balance:
+        <div id="vis1" class="sm-vis"></div>
+        This is the stationary distribution of the system above:
+        <div id="vis2" class="sm-vis"></div>
+        The stationary distribution above does not obey detailed balance, which means there is a non-zero net flux. This
+        reflects a tendency for the trajectories to move in a clockwise sense around the three state loop. This looping
+        is characteristic behaviour for a system in the absence of detailed balance, however it is impossible when there
+        is detailed balance.
+        <div id="vis3" class="sm-vis"></div>
+        The system above has a stationary distribution which does obey detailed balance where the net flux through each
+        state is 0. The stationary distribution has the same probabilities of being in states A, B and C, namely 0.25,
+        0.25 and 0.5.
+        <h3>Detailed balance and relative probabilities</h3>
+        The existance of detailed balance makes it easy to calculate the relative probabilities in the stationary
+        distribution \( \pi_i / \pi_j \).
+        $$ \frac{\pi_i}{\pi_j} = \frac{K_{ij}}{K_{ji}} \text{ or } \frac{T_{ij}}{T_{ji}} $$
+        If it is impossible to directly transition from \( i \) to \( j \), we can still calculate \( \pi_i / \pi_j \)
+        by finding an intermediate state \( k \) that allows a connection to be made:
+        $$ \frac{\pi_i}{\pi_j} = \frac{K_{ik}K_{kj}}{K_{jk}K_{ki}} \text{ or } \frac{T_{ik}T_{kj}}{T_{jk}T_{ki}} $$
+        <h3>Detailed balance in equilibrium thermodynamic systems</h3>
+        <ul>
+            <li>Stochastic processes that are not driven by an input of fuel or energy at some level will eventually
+                relax to an equilibrium stationary distribution. Conversely, continuous external driving can be used to
+                keep a system out of equilibrium.</li>
+            <li>Equilibrium distributions <i>necessarily obey detailed balance</i>, otherwise we could extract work from
+                currents and violate the second law of thermodynamics.</li>
+            <li>Stochastic processes that are not driven have transition matrices/rate matrices that are consistent with
+                detailed balance, and hence detailed balance stationary distributions.</li>
+        </ul>
+        In biology, systems are often maintained at a constant temperature. The relative probability of states in governed by the Boltzmann distribution:
+        $$ \pi_i  \propto \exp (-E_i / k_B T) $$
+        Where \( E_i \) is the energy of state i, \( k_B \) is Boltzmann's constant, and \( T \) is temperature is Kelvin.
+        This means $$ \frac{\pi_i}{\pi_j} = \frac{K_{ij}}{K_{ji}} = \frac{K_{ik}K_{kj}}{K_{jk}K_{ki}} = \exp (-(E_i - E_j) / k_B T) $$
+    </div>
+    <a href="/index.html" class="back-link">Back</a>
+    <script src="../src/sdist.js"></script>
+</body>
+
+</html>

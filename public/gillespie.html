@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/index.css" />
+    <title>Stochastic processes and networks</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>The Gillespie algorithm</h1>
+        As an alternative to following the full probability distributrion, there is an elegant
+        method for generating exact sample trajectories for continuous-time, discrete-state
+        Markov processes, known as the <i>Gillespie algorithm</i>. The algorithm is event-based:
+        the idea is to randomly generate the next event type and the next event time using
+        the exact probability distributions specified by \(\mathbf{K}\).
+        <ol>
+            <li>
+                First <a href="/ctmarkov.html#embedded">simulate the embedded discrete-time Markov chain</a>. This gives
+                a sample of the sequence of states visited, however lacks information about the time taken for each
+                transition.
+            </li>
+            <li>
+                Next, the simulation is augmented with samples of transition times.
+                <br />
+                \( \theta \), which represents the time taken to jump between states, is a random variable with
+                probability distribution given by:
+                $$ p(\theta) = k_{\text{tot}}e^{-k_{\text{tot}}\theta}$$
+                where \( k_{\text{tot}} \) is the total transition rate out of that state.
+                <br />
+                We sample a time from this distribution for each jump.
+            </li>
+        </ol>
+
+
+    </div>
+    <a href="/index.html" class="back-link">Back</a>
+
+</body>
+
+</html>

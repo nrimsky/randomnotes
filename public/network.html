@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/index.css" />
+    <title>Stochastic processes and networks</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Networks</h1>
+        <svg width="500" height="500" style="display: block;"></svg>
+        A graph is the mathematical description of a network. It consists of a series of nodes – these are the
+        "entities" – and edges between those nodes that represent the links or connections. These edges can be directed
+        (point from one node to another) or not, and sometimes they can have weights attached to them. Above is an
+        example of a graph that represents the network of Les Misérables characters. This graph is weighted (as
+        represented by the edge width) but not directed. Networks can show emergent behaviour that is fundamentally
+        different from that of a single node.
+        <h2>Basic properties of graphs</h2>
+        <h3>Properties of nodes and small sets of nodes</h3>
+        <ul class="spaced">
+            <li>Degree: <br />The degree of a node is the number of edges connected to (adjacent to) a node. If the
+                graph is directional, we can define an in-degree and an out-degree. Note that undirected self-edges
+                contribute 2 to the degree (the edge connects twice).</li>
+            <li>Adjacency: <br />Two nodes are adjacent if they are connected by an edge (this edge is also described as
+                being adjacent to both nodes).</li>
+            <li>Shortest path length: <br />the shortest path \( L_{ij} \) is the minimum path length from node \( i \)
+                to \( j \). For an unweighted graph, this length is simply the number of edges that must be travelled.
+                For a weighted graph, the distance is the sum over weights along the links. To find the shortest path
+                between any two nodes, you can apply one of several well-known algorithms (eg. Dijkstra’s algorithm).
+            </li>
+            <li>Local clustering coefficient: <br />The local clustering coefficient of a node \( i \) is the proportion
+                of the possible connections between the nodes adjacent to \( i \) that actually exist.
+                $$ C_i = \frac{2n_i}{k_i(k_i - 1)} $$
+                Here, \( k_i \) is the number of distinct nodes to which \( i \) is connected, and \( n_i \) is the
+                number of edges within these \( k_i \) nodes (note that this quantity is ill-defined for nodes with
+                1 or 0 neighbours; we shall simply set the local clustering coefficient to zero in such cases).</li>
+        </ul>
+        <h3>Topological properties of the graph as a whole</h3>
+        <ul class="spaced">
+            <li>Connectivity: <br />In a connected graph, there is a path between every pair of vertices (the path can
+                go through multiple intermediate nodes).</li>
+            <li>Average degree: <br />The average degree \( \bar{k} \) is the degree \( k_i \) averaged over all the
+                nodes in the network. We describe a network as sparse if the average degree is much smaller than the
+                network size (most edges don’t exist).</li>
+            <li>Adjacency matrix: <br />The adjacency matrix \( \mathbf{A} \) for a graph with \( N \) nodes is an \( N
+                \times N \) matrix with \( A_{ij} = 1 \) if there is a connection from \( i \) to \( j \) in the graph,
+                and zero otherwise.
+            </li>
+            <li>Network diameter: <br />The network diameter \( D \) is the maximum over all pairs \( i,j \) in the
+                network of the shortest path length from \( i \) to \( j \), \( L_{ij} \) . It is therefore the shortest
+                route between the most distant nodes.</li>
+            <li>Global clustering coefficient: <br />The global clustering coefficient \( C \) is the local clustering
+                coefficient averaged over all nodes in the graph</li>
+        </ul>
+        <h2>Generic types of network</h2>
+        <h3>Erdos-Renyi networks</h3>
+        Erdos-Renyi networks are simple random networks that make a good starting point for comparisons to real-world
+        data. To construct an Erdos-Renyi network with no self-edges, we specify a desired number of nodes \( N \) and a
+        desired average degree \( \bar{k} \). We then consider each possible edge between nodes, and include each one
+        independently with a probability \( q = \bar{k}/(N-1) \). The result will be a random graph with \( N \) nodes
+        and approximately the desired average degree.
+        <br />
+        <br />
+        Erdos-Renyi networks have a binomial degree distribution \( p(k) \). Here, the binomial "trial" is asking
+        whether or not an edge exists, and a "success" is counted when the edge exists. In the limit of many nodes \( N
+        \) and finite average degree \( k \) that significantly smaller than \( N \), the Binomial distribution can be
+        approximated with a Poisson degree distribution with mean \( \lambda = \bar{k} \). Thus:
+        $$ p(k) \approx \frac{\bar{k}^k \exp(-\bar{k})}{k!} $$
+        The diameter of an Erdos-Renyi network grows much more slowly with its size (in terms of number of nodes) than a
+        lattice network. It is thus much easier to reach distant points in the network in only a small number of jumps.
+        <h3>Small-world networks</h3>
+        A "small-world network" is a network with a diameter \( D \) that is surprisingly small for the network’s size
+        \( N \) ( \( D \propto \log (N) \) ) given that it has a high global clustering coefficient \( C \) and sparse
+        connections \( \bar{k} \ll N \).
+        <ul>
+            <li>Sparse, highly-clustered networks with this small-world property seem to arise all the time in both
+                biological (eg. molecular regulatory networks) and non-biological (eg. the internet) contexts.</li>
+            <li>Most small world networks typically have degree distributions that differ markedly from Erdos-Renyi
+                networks with the same average connectivity. \( p(k) \) for an Erdos-Renyi network is binomial /
+                approximated with Poisson, giving a fairly sharply peaked distribution. However, many small-work
+                networks have much broader distributions of \( p(k) \), with substanital probabilities of finding a node
+                with degree much higher than average. These highly-connected nodes act as interconnecting hubs, allowing
+                efficient hopping around the network and low diameter despite high clustering.</li>
+        </ul>
+        <svg id="svg2" width="300" height="200"></svg>
+        <h3>Scale-free networks</h3>
+    </div>
+    <script src="../src/network.js"></script>
+    <a href="/index.html" class="back-link">Back</a>
+</body>
+
+</html>

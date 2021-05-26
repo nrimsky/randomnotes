@@ -1,0 +1,20 @@
+{
+  "name": "visualisations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel public/*.html",
+    "build": "parcel build --no-minify public/*.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^6.7.0",
+    "vis-network": "^9.0.4"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.10.3"
+  }
+}
