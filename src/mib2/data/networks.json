@@ -27,6 +27,8 @@
       { "source": "Hub 1", "target": "J", "value": 1 },
       { "source": "Hub 2", "target": "Hub 1", "value": 1 },
       { "source": "F", "target": "H", "value": 1 },
+      { "source": "D", "target": "A", "value": 1 },
+      { "source": "I", "target": "G", "value": 1 },
       { "source": "B", "target": "D", "value": 1 }
     ]
   },
